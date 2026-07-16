@@ -1,0 +1,73 @@
+  /* 全域平滑過渡，套用 Apple 專屬貝茲曲線 */
+  *,
+  *::before,
+  *::after {
+      transition: background-color 400ms cubic-bezier(0.25, 1, 0.5, 1),
+          border-color 400ms cubic-bezier(0.25, 1, 0.5, 1),
+          color 400ms cubic-bezier(0.25, 1, 0.5, 1),
+          opacity 400ms cubic-bezier(0.25, 1, 0.5, 1),
+          transform 400ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* 漸層光澤文字效果 */
+  .gradient-text {
+      background: linear-gradient(135deg, #0071e3 0%, #2997ff 50%, #8ea1ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+  }
+
+  .dark .gradient-text {
+      background: linear-gradient(135deg, #2997ff 0%, #a5c2ff 50%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+  }
+
+  /* 打字機游標閃爍 */
+  .typewriter-cursor::after {
+      content: '|';
+      animation: blink 0.8s infinite;
+  }
+
+  @keyframes blink {
+
+      0%,
+      100% {
+          opacity: 1;
+      }
+
+      50% {
+          opacity: 0;
+      }
+  }
+
+  /* 滾動觸發（Scroll Reveal）初始隱藏樣式 */
+  .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+  }
+
+  /* 啟動時的樣式 */
+  .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+  }
+
+  /* 自訂極簡滾動條 */
+  ::-webkit-scrollbar {
+      width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+      background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      background: #86868b;
+      border-radius: 9999px;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+      background: #424245;
+  }

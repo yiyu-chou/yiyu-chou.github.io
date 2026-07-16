@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>頁面模板 | YiYu Chou</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons for premium minimalistic icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Tailwind configuration for custom colors and Apple animation curves -->
+  <script src="../util/tailwindConfigurationForCustom.js"></script>
+  <!-- 引入全部頁面通用的CSS -->
+  <link rel="stylesheet" href="../util/commonStyle.css">
+</head>
+<body class="bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark font-sans antialiased overflow-x-hidden selection:bg-appleBlue-light selection:text-white">
+
+  <!-- [必要元素] 導覽列容器（由 JavaScript 動態注入組件，維持跨頁共用性） -->
+  <div id="navbar-portal"></div>
+
+  <!-- 主內容區(內容由此撰寫) --> 
+  <main class="pt-20">
+
+
+  </main>
+
+  <!-- [必要元素] 頁尾容器（由 JavaScript 動態注入組件，維持跨頁共用性） -->
+  <div id="footer-portal"></div>
+  <!-- [必要元素] 引入導覽列及頁尾容器所需JavaScript程式 -->
+  <script src="../util/navbarAndFooter.js"></script>
+  <!-- [必要元素] 引入滾動顯現及Lucide圖標所需JavaScript程式-->
+  <script src="../util/commonScript.js"></script>
+</body>
+</html>

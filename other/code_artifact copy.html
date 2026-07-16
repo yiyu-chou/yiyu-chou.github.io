@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人作品集 | Ethan Lin</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons for premium minimalistic icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    // Tailwind configuration for custom colors and Apple animation curves
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            appleBlue: {
+              light: '#0071e3',
+              dark: '#2997ff',
+            },
+            bg: {
+              light: '#fbfbfd',
+              dark: '#000000',
+            },
+            card: {
+              light: '#ffffff',
+              dark: '#1d1d1f',
+            },
+            text: {
+              light: '#1d1d1f',
+              dark: '#f5f5f7',
+            },
+            muted: {
+              light: '#86868b',
+              dark: '#86868b',
+            }
+          },
+          transitionTimingFunction: {
+            'apple-ease': 'cubic-bezier(0.25, 1, 0.5, 1)',
+          },
+          transitionDuration: {
+            '400': '400ms',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* 全域平滑過渡，套用 Apple 專屬貝茲曲線 */
+    *, *::before, *::after {
+      transition: background-color 400ms cubic-bezier(0.25, 1, 0.5, 1), 
+                  border-color 400ms cubic-bezier(0.25, 1, 0.5, 1), 
+                  color 400ms cubic-bezier(0.25, 1, 0.5, 1),
+                  opacity 400ms cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 400ms cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* 漸層光澤文字效果 */
+    .gradient-text {
+      background: linear-gradient(135deg, #0071e3 0%, #2997ff 50%, #8ea1ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .dark .gradient-text {
+      background: linear-gradient(135deg, #2997ff 0%, #a5c2ff 50%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* 打字機游標閃爍 */
+    .typewriter-cursor::after {
+      content: '|';
+      animation: blink 0.8s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* 滾動觸發（Scroll Reveal）初始隱藏樣式 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    /* 啟動時的樣式 */
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 自訂極簡滾動條 */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #86868b;
+      border-radius: 9999px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #424245;
+    }
+  </style>
+</head>
+<body class="bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark font-sans antialiased overflow-x-hidden selection:bg-appleBlue-light selection:text-white">
+
+  <!-- 導覽列容器（由 JavaScript 動態注入組件，維持跨頁共用性） -->
+  <div id="navbar-portal"></div>
+
+  <!-- 主內容區 -->
+  <main class="pt-20">
+    
+    <!-- Hero 視覺首頁區區塊 -->
+    <section id="home" class="min-h-[95vh] flex flex-col justify-center items-center px-6 text-center relative">
+      <div class="max-w-4xl space-y-8">
+        <!-- 頂部標章：低調宣告當前焦點 -->
+        <div class="reveal inline-flex items-center gap-2 px-3 py-1 rounded-full bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 text-appleBlue-light dark:text-appleBlue-dark text-xs font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-appleBlue-light dark:bg-appleBlue-dark animate-pulse"></span>
+          2026 大學甄試與學術研究導師尋求中
+        </div>
+        
+        <!-- 主標題：極簡、大器、漸層文字 -->
+        <h1 class="reveal text-5xl md:text-8xl font-extrabold tracking-tight leading-none">
+          你好，我是 <span class="gradient-text" id="hero-name">林育廷</span>
+        </h1>
+        
+        <!-- 副標題：動態切換的斜槓定位 -->
+        <div class="reveal text-xl md:text-3xl font-medium text-muted-light dark:text-muted-dark min-h-[40px]">
+          我是一位 <span id="typewriter" class="text-appleBlue-light dark:text-appleBlue-dark typewriter-cursor font-semibold"></span>
+        </div>
+        
+        <!-- 簡短宣言：極具信念感的抽象句式 -->
+        <p class="reveal max-w-lg mx-auto text-base md:text-lg text-muted-light dark:text-muted-dark leading-relaxed font-light" id="hero-bio">
+          以邏輯拆解世界，用好奇心探索日常。比起單純背誦公式，我更著迷於數理規律背後的美，並試著用它們理解生活中的各種可能。
+        </p>
+        
+        <!-- 行動呼籲按鈕 -->
+        <div class="reveal pt-4 flex flex-wrap justify-center gap-4">
+          <a href="#about" class="px-7 py-3 rounded-full bg-appleBlue-light dark:bg-appleBlue-dark text-white font-medium hover:opacity-90 active:scale-95 transition-all shadow-md flex items-center gap-2">
+            深入了解我 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <a href="#portfolio" class="px-7 py-3 rounded-full border border-gray-300 dark:border-zinc-800 hover:bg-black/5 dark:hover:bg-white/5 font-medium active:scale-95 transition-all flex items-center gap-2">
+            瀏覽探索成果
+          </a>
+        </div>
+      </div>
+      
+      <!-- 向下滾動提示 -->
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-light dark:text-muted-dark text-xs opacity-60">
+        <span>探索更多實作細節</span>
+        <i data-lucide="chevron-down" class="w-4 h-4 animate-bounce"></i>
+      </div>
+    </section>
+
+    <!-- 關於我（About Me） -->
+    <section id="about" class="py-24 px-6 max-w-6xl mx-auto scroll-mt-10">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+        
+        <!-- 左側側欄：基本資料 -->
+        <div class="md:col-span-4 space-y-6 reveal md:sticky md:top-28">
+          <div class="relative group aspect-square rounded-3xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 shadow-lg flex items-center justify-center">
+            <!-- 象徵探索、指南針的圖形圖標替代大頭貼 -->
+            <div class="w-full h-full flex flex-col items-center justify-center text-zinc-400 bg-gray-50 dark:bg-zinc-900 group-hover:scale-105 transition-transform">
+              <i data-lucide="compass" class="w-20 h-20 stroke-[1] text-appleBlue-light dark:text-appleBlue-dark mb-2"></i>
+              <span class="text-xs text-muted-light dark:text-muted-dark font-mono">LOGIC & DISCOVERY</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold" id="about-name">林育廷 (Ethan Lin)</h3>
+            <p class="text-appleBlue-light dark:text-appleBlue-dark font-medium" id="about-target">理學與資訊科技相關學系 / 數理領域</p>
+          </div>
+          
+          <div class="space-y-3 pt-4 border-t border-gray-200 dark:border-zinc-800 text-sm" id="about-contact-list">
+            <!-- 聯絡資訊直接寫死，方便修改 -->
+            <div class="flex items-center gap-3 text-muted-light dark:text-muted-dark">
+              <i data-lucide="mail" class="w-4 h-4 text-appleBlue-light dark:text-appleBlue-dark flex-shrink-0"></i>
+              <span class="font-medium text-text-light dark:text-text-dark w-16">電子信箱:</span>
+              <a href="mailto:ethan.lin.dev@gmail.com" target="_blank" class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark underline underline-offset-4 truncate">ethan.lin.dev@gmail.com</a>
+            </div>
+            <div class="flex items-center gap-3 text-muted-light dark:text-muted-dark">
+              <i data-lucide="map-pin" class="w-4 h-4 text-appleBlue-light dark:text-appleBlue-dark flex-shrink-0"></i>
+              <span class="font-medium text-text-light dark:text-text-dark w-16">所在地:</span>
+              <span class="truncate">台灣, 台北市</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 右側：主要自述、核心能力與學術特質 -->
+        <div class="md:col-span-8 space-y-12">
+          <!-- 自述 -->
+          <div class="space-y-4 reveal">
+            <h2 class="text-xs uppercase tracking-widest text-appleBlue-light dark:text-appleBlue-dark font-bold">About Me</h2>
+            <h3 class="text-3xl font-bold">追尋世界規律與生活美學的觀察者</h3>
+            <div class="text-muted-light dark:text-muted-dark space-y-4 leading-relaxed text-base md:text-lg font-light" id="about-detailed-desc">
+              <p>我是目前就讀於台北市立高級中學的學生。自高一接觸幾何證明與古典物理後，我便深陷於「用最簡潔的規律解釋最複雜現象」的成就感中。在學期間，除了維持基礎學業的優良，我更喜歡將課本中的抽象數理概念延伸到生活周遭。</p>
+              <p>我認為邏輯是人類最美麗的工具。無論是在限時內還原一顆雜亂無章的魔術方塊、探究彈簧下墜時的動態平衡，還是用幾何繪圖軟體繪製碎形藝術，我都享受那份動腦拆解、化繁為簡的純粹快樂。我期待在大學能深入探求更具系統性的理論與數理科學。</p>
+            </div>
+          </div>
+          
+          <!-- 核心能力 (Skills) -->
+          <div class="space-y-6 reveal">
+            <h3 class="text-xl font-bold">思考維度與興趣特質</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="skills-container">
+              
+              <!-- 技能卡片 1 -->
+              <div class="p-5 rounded-2xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-zinc-900 shadow-sm space-y-2 hover:shadow-md transition-all">
+                <h4 class="font-bold text-lg text-text-light dark:text-text-dark flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-appleBlue-light dark:bg-appleBlue-dark"></span>
+                  數理邏輯與分析
+                </h4>
+                <p class="text-sm font-semibold text-appleBlue-light dark:text-appleBlue-dark">空間幾何、機率與賽局思維、物理建模基礎</p>
+                <p class="text-xs text-muted-light dark:text-muted-dark leading-relaxed">擅長抽象思考與公式拆解，著迷於利用幾何與代數規律簡化問題，喜愛探索圖論與博弈賽局。</p>
+              </div>
+
+              <!-- 技能卡片 2 -->
+              <div class="p-5 rounded-2xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-zinc-900 shadow-sm space-y-2 hover:shadow-md transition-all">
+                <h4 class="font-bold text-lg text-text-light dark:text-text-dark flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-appleBlue-light dark:bg-appleBlue-dark"></span>
+                  多元興趣與實作
+                </h4>
+                <p class="text-sm font-semibold text-appleBlue-light dark:text-appleBlue-dark">魔術方塊速解、GeoGebra 繪圖、Python 運算、排球</p>
+                <p class="text-xs text-muted-light dark:text-muted-dark leading-relaxed">結合手眼協調與空間邏輯。能操作 Python 進行數值運算與簡單數據視覺化，並熱衷於社團推廣與交流。</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- 學習歷程與里程碑（Education & Timeline） -->
+    <section id="experience" class="py-24 bg-card-light dark:bg-card-dark border-y border-gray-100 dark:border-zinc-900 px-6 scroll-mt-10">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center space-y-4 mb-16 reveal">
+          <h2 class="text-xs uppercase tracking-widest text-appleBlue-light dark:text-appleBlue-dark font-bold">Timeline</h2>
+          <h3 class="text-3xl md:text-4xl font-bold">日常足跡與學習里程</h3>
+          <p class="text-muted-light dark:text-muted-dark max-w-lg mx-auto font-light">梳理在高中階段的科學競賽、社團活動與自主學習歷程。</p>
+        </div>
+        
+        <!-- 時間軸列表 -->
+        <div class="relative border-l-2 border-gray-200 dark:border-zinc-800 ml-4 md:ml-32 space-y-12" id="timeline-container">
+          
+          <!-- 時間軸項目 1 -->
+          <div class="relative pl-8 md:pl-12 group reveal">
+            <!-- 時間標記 (大螢幕置左) -->
+            <div class="md:absolute md:-left-36 md:top-1 md:w-28 md:text-right font-bold text-appleBlue-light dark:text-appleBlue-dark text-lg">
+              2025.12
+            </div>
+            <!-- 時間軸圓點 -->
+            <div class="absolute left-[-9px] top-1.5 w-4 h-4 rounded-full bg-bg-light dark:bg-bg-dark border-4 border-appleBlue-light dark:border-appleBlue-dark group-hover:scale-125 transition-transform"></div>
+            
+            <div class="bg-bg-light dark:bg-bg-dark/40 p-6 rounded-2xl border border-transparent group-hover:border-gray-200 dark:group-hover:border-zinc-800 transition-all">
+              <!-- 手機版的時間顯示 -->
+              <div class="md:hidden inline-block px-2.5 py-0.5 mb-2 rounded-md bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 text-appleBlue-light dark:text-appleBlue-dark font-bold text-xs">
+                2025.12
+              </div>
+              <h4 class="text-xl font-bold text-text-light dark:text-text-dark">TRML 高中數學競賽</h4>
+              <p class="text-sm font-semibold text-appleBlue-light dark:text-appleBlue-dark mt-1">參賽隊員 / 團體協作</p>
+              <p class="text-sm text-muted-light dark:text-muted-dark mt-3 leading-relaxed">與班上志同道合的夥伴組成隊伍，在限時競速中共同挑戰高難度的代數與幾何難題，體會到群體腦力激盪與分工的魅力。</p>
+            </div>
+          </div>
+
+          <!-- 時間軸項目 2 -->
+          <div class="relative pl-8 md:pl-12 group reveal">
+            <!-- 時間標記 -->
+            <div class="md:absolute md:-left-36 md:top-1 md:w-28 md:text-right font-bold text-appleBlue-light dark:text-appleBlue-dark text-lg">
+              2025.05
+            </div>
+            <!-- 時間軸圓點 -->
+            <div class="absolute left-[-9px] top-1.5 w-4 h-4 rounded-full bg-bg-light dark:bg-bg-dark border-4 border-appleBlue-light dark:border-appleBlue-dark group-hover:scale-125 transition-transform"></div>
+            
+            <div class="bg-bg-light dark:bg-bg-dark/40 p-6 rounded-2xl border border-transparent group-hover:border-gray-200 dark:group-hover:border-zinc-800 transition-all">
+              <!-- 手機版時間 -->
+              <div class="md:hidden inline-block px-2.5 py-0.5 mb-2 rounded-md bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 text-appleBlue-light dark:text-appleBlue-dark font-bold text-xs">
+                2025.05
+              </div>
+              <h4 class="text-xl font-bold text-text-light dark:text-text-dark">校內科學展覽（物理科）</h4>
+              <p class="text-sm font-semibold text-appleBlue-light dark:text-appleBlue-dark mt-1">研究小組成員</p>
+              <p class="text-sm text-muted-light dark:text-muted-dark mt-3 leading-relaxed">以生活常見的流體現象為題，設計實驗、收集數據並與課本理論比對。過程中學會如何系統性地控制變因，並撰寫具邏輯性的科學研究報告。</p>
+            </div>
+          </div>
+
+          <!-- 時間軸項目 3 -->
+          <div class="relative pl-8 md:pl-12 group reveal">
+            <!-- 時間標記 -->
+            <div class="md:absolute md:-left-36 md:top-1 md:w-28 md:text-right font-bold text-appleBlue-light dark:text-appleBlue-dark text-lg">
+              2024.10
+            </div>
+            <!-- 時間軸圓點 -->
+            <div class="absolute left-[-9px] top-1.5 w-4 h-4 rounded-full bg-bg-light dark:bg-bg-dark border-4 border-appleBlue-light dark:border-appleBlue-dark group-hover:scale-125 transition-transform"></div>
+            
+            <div class="bg-bg-light dark:bg-bg-dark/40 p-6 rounded-2xl border border-transparent group-hover:border-gray-200 dark:group-hover:border-zinc-800 transition-all">
+              <!-- 手機版時間 -->
+              <div class="md:hidden inline-block px-2.5 py-0.5 mb-2 rounded-md bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 text-appleBlue-light dark:text-appleBlue-dark font-bold text-xs">
+                2024.10
+              </div>
+              <h4 class="text-xl font-bold text-text-light dark:text-text-dark">魔術方塊社 創社社員與活動教學</h4>
+              <p class="text-sm font-semibold text-appleBlue-light dark:text-appleBlue-dark mt-1">多元興趣推廣</p>
+              <p class="text-sm text-muted-light dark:text-muted-dark mt-3 leading-relaxed">共同發起並創立校內魔方社。負責向社員介紹空間結構與速解（CFOP）公式的對稱美，將原本枯燥的公式記憶轉化為直覺的空間反應。</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 精選作品集（Projects Portfolio） -->
+    <section id="portfolio" class="py-24 px-6 max-w-6xl mx-auto scroll-mt-10">
+      <div class="space-y-4 mb-16 text-center reveal">
+        <h2 class="text-xs uppercase tracking-widest text-appleBlue-light dark:text-appleBlue-dark font-bold">Portfolio</h2>
+        <h3 class="text-3xl md:text-4xl font-bold">自主探索與思考成果</h3>
+        <p class="text-muted-light dark:text-muted-dark max-w-lg mx-auto font-light">動手實踐與觀察是理解的起點。這裡展示了我將數理邏輯、生活興趣結合的精選成果。</p>
+      </div>
+
+      <!-- 作品網格 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-container">
+        
+        <!-- 專案 1 -->
+        <article class="group relative rounded-3xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-zinc-900 p-6 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between reveal">
+          <div class="space-y-4">
+            <!-- 專案圖示與分類 -->
+            <div class="flex justify-between items-start">
+              <div class="w-12 h-12 rounded-2xl bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 flex items-center justify-center text-appleBlue-light dark:text-appleBlue-dark">
+                <i data-lucide="compass" class="w-6 h-6"></i>
+              </div>
+              <span class="text-xs font-semibold text-muted-light dark:text-muted-dark bg-gray-100 dark:bg-zinc-800 px-2.5 py-1 rounded-full">自主學習 | 數理美學</span>
+            </div>
+            
+            <!-- 專案標題與描述 -->
+            <div class="space-y-2">
+              <h4 class="text-xl font-bold group-hover:text-appleBlue-light dark:group-hover:text-appleBlue-dark transition-colors">GeoGebra 幾何與函數視覺化</h4>
+              <p class="text-sm text-muted-light dark:text-muted-dark leading-relaxed line-clamp-3">利用 GeoGebra 繪圖工具，將動態幾何軌跡、傅立葉級數的波形疊加與分形（Fractal）幾何動態化呈現，把抽象的函數變換轉化為優美的視覺藝術。</p>
+            </div>
+          </div>
+          
+          <!-- 技術標籤與連結 -->
+          <div class="pt-6 mt-6 border-t border-gray-100 dark:border-zinc-800/50 flex items-center justify-between">
+            <div class="flex flex-wrap gap-1.5">
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-md bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark">GeoGebra</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-md bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark">動態幾何</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-md bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark">函數視覺化</span>
+            </div>
+            <a href="#" class="text-appleBlue-light dark:text-appleBlue-dark hover:opacity-80 flex items-center gap-1 text-sm font-semibold">
+              詳情 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- 專案 2 -->
+        <article class="group relative rounded-3xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-zinc-900 p-6 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between reveal">
+          <div class="space-y-4">
+            <!-- 專案圖示與分類 -->
+            <div class="flex justify-between items-start">
+              <div class="w-12 h-12 rounded-2xl bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 flex items-center justify-center text-appleBlue-light dark:text-appleBlue-dark">
+                <i data-lucide="box" class="w-6 h-6"></i>
+              </div>
+              <span class="text-xs font-semibold text-muted-light dark:text-muted-dark bg-gray-100 dark:bg-zinc-800 px-2.5 py-1 rounded-full">小論文發表 | 邏輯研究</span>
+            </div>
+            
+            <!-- 專案標題與描述 -->
+            <div class="space-y-2">
+              <h4 class="text-xl font-bold group-hover:text-appleBlue-light dark:group-hover:text-appleBlue-dark transition-colors">魔術方塊速解演算法與空間分析</h4>
+              <p class="text-sm text-muted-light dark:text-muted-dark leading-relaxed line-clamp-3">探討魔術方塊不同還原公式（如 CFOP 系統）中的對稱性與步數規律。分析公式在三維空間中的運作邏輯，並嘗試以圖論視角理解打亂狀態的最少還原步驟。</p>
+            </div>
+          </div>
+          
+          <!-- 技術標籤與連結 -->
+          <div class="pt-6 mt-6 border-t border-gray-100 dark:border-zinc-800/50 flex items-center justify-between">
+            <div class="flex flex-wrap gap-1.5">
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-md bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark">群論基礎</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-md bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark">空間邏輯</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-md bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark">Python 輔助</span>
+            </div>
+            <a href="#" class="text-appleBlue-light dark:text-appleBlue-dark hover:opacity-80 flex items-center gap-1 text-sm font-semibold">
+              詳情 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- 專案 3 -->
+        <article class="group relative rounded-3xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-zinc-900 p-6 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between reveal">
+          <div class="space-y-4">
+            <!-- 專案圖示與分類 -->
+            <div class="flex justify-between items-start">
+              <div class="w-12 h-12 rounded-2xl bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 flex items-center justify-center text-appleBlue-light dark:text-appleBlue-dark">
+                <i data-lucide="trending-up" class="w-6 h-6"></i>
+              </div>
+              <span class="text-xs font-semibold text-muted-light dark:text-muted-dark bg-gray-100 dark:bg-zinc-800 px-2.5 py-1 rounded-full">物理專題 | 觀察記錄</span>
+            </div>
+            
+            <!-- 專案標題與描述 -->
+            <div class="space-y-2">
+              <h4 class="text-xl font-bold group-hover:text-appleBlue-light dark:group-hover:text-appleBlue-dark transition-colors">日常物理現象的 Tracker 軌跡解析</h4>
+              <p class="text-sm text-muted-light dark:text-muted-dark leading-relaxed line-clamp-3">利用高速攝影記錄生活中的運動現象（如乒乓球彈跳、水滴滴落），並透過 Tracker 分析軟體追蹤其軌跡，藉此修正並估算空氣阻力對重力加速度產生的微小偏誤。</p>
+            </div>
+          </div>
+          
+          <!-- 技術標籤與連結 -->
+          <div class="pt-6 mt-6 border-t border-gray-100 dark:border-zinc-800/50 flex items-center justify-between">
+            <div class="flex flex-wrap gap-1.5">
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-md bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark">Tracker 軟體</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-md bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark">數據分析</span>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-md bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark">物理建模</span>
+            </div>
+            <a href="#" class="text-appleBlue-light dark:text-appleBlue-dark hover:opacity-80 flex items-center gap-1 text-sm font-semibold">
+              詳情 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 頁尾容器（由 JavaScript 動態注入組件，維持跨頁共用性） -->
+  <div id="footer-portal"></div>
+
+  <!-- ==========================================
+       動態元件與渲染邏輯 (Vanilla JS & Component System)
+       ========================================== -->
+  <script>
+    // 打字機動畫所使用的身份陣列（由 JS 單獨控制）
+    const TYPEWRITER_ROLES = ["數理邏輯探索者", "魔術方塊速解愛好者", "生活物理觀察家", "自主學習實踐者"];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. 初始化導覽列與頁尾元件 (組件化處理)
+      initCommonComponents();
+      
+      // 2. 啟動打字機效果
+      initTypewriter();
+      
+      // 3. 啟動滾動顯現 (Scroll Reveal)
+      initScrollReveal();
+
+      // 4. 初始化 Lucide 圖標
+      lucide.createIcons();
+    });
+
+    /**
+     * 封裝全站共用導覽列與頁尾元件（模組化 JavaScript 動態注入）
+     */
+    function initCommonComponents() {
+      const isDarkMode = localStorage.getItem('theme') === 'dark' || 
+                         (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
+      // --- 導覽列組件結構 ---
+      const navbarHTML = `
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-bg-light/80 dark:bg-bg-dark/80 backdrop-blur-md border-b border-gray-100 dark:border-zinc-900 transition-all duration-300">
+          <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#home" class="text-lg font-bold tracking-tight hover:opacity-80 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-appleBlue-light dark:bg-appleBlue-dark flex items-center justify-center text-white text-xs font-black">E</span>
+              Ethan Lin
+            </a>
+
+            <!-- 桌面版選單 -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+              <a href="#home" class="nav-link hover:text-appleBlue-light dark:hover:text-appleBlue-dark py-2 transition-colors">首頁</a>
+              <a href="#about" class="nav-link hover:text-appleBlue-light dark:hover:text-appleBlue-dark py-2 transition-colors">關於我</a>
+              <a href="#experience" class="nav-link hover:text-appleBlue-light dark:hover:text-appleBlue-dark py-2 transition-colors">學習歷程</a>
+              <a href="#portfolio" class="nav-link hover:text-appleBlue-light dark:hover:text-appleBlue-dark py-2 transition-colors">探索成果</a>
+            </div>
+
+            <!-- 控制鈕區 (深色模式 + 手機選單開關) -->
+            <div class="flex items-center gap-4">
+              <!-- 深淺色切換按鈕 -->
+              <button id="theme-toggle" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-muted-light dark:text-muted-dark hover:text-text-light dark:hover:text-text-dark focus:outline-none transition-colors" aria-label="Toggle Theme">
+                <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+              </button>
+
+              <!-- 行動裝置漢堡選單開關 -->
+              <button id="mobile-menu-btn" class="md:hidden p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-muted-light dark:text-muted-dark hover:text-text-light dark:hover:text-text-dark focus:outline-none transition-colors">
+                <i data-lucide="menu" class="w-5 h-5 block" id="menu-icon-open"></i>
+                <i data-lucide="x" class="w-5 h-5 hidden" id="menu-icon-close"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- 行動版下拉式選單 -->
+          <div id="mobile-menu" class="hidden md:hidden bg-bg-light/95 dark:bg-bg-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-zinc-900">
+            <div class="flex flex-col px-6 py-4 space-y-4 text-base font-semibold">
+              <a href="#home" class="mobile-nav-link py-2 border-b border-gray-100 dark:border-zinc-900">首頁</a>
+              <a href="#about" class="mobile-nav-link py-2 border-b border-gray-100 dark:border-zinc-900">關於我</a>
+              <a href="#experience" class="mobile-nav-link py-2 border-b border-gray-100 dark:border-zinc-900">學習歷程</a>
+              <a href="#portfolio" class="mobile-nav-link py-2">探索成果</a>
+            </div>
+          </div>
+        </nav>
+      `;
+
+      // --- 頁尾組件結構 ---
+      const footerHTML = `
+        <footer class="border-t border-gray-100 dark:border-zinc-900 bg-bg-light dark:bg-bg-dark py-12 px-6">
+          <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left space-y-2">
+              <p class="font-bold text-text-light dark:text-text-dark flex items-center justify-center md:justify-start gap-2">
+                <span class="w-5.5 h-5.5 rounded-md bg-appleBlue-light dark:bg-appleBlue-dark flex items-center justify-center text-white text-[10px] font-black">E</span>
+                Ethan Lin
+              </p>
+              <p class="text-xs text-muted-light dark:text-muted-dark">追求細節與流暢互動的前端探索之旅</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-muted-light dark:text-muted-dark">
+              <a href="#home" class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">回首頁</a>
+              <a href="#about" class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">關於我</a>
+              <a href="#experience" class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">學習歷程</a>
+              <a href="#portfolio" class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">探索成果</a>
+            </div>
+
+            <p class="text-xs text-muted-light dark:text-muted-dark">&copy; ${new Date().getFullYear()} Ethan Lin. All rights reserved.</p>
+          </div>
+        </footer>
+      `;
+
+      // 注入元件到 HTML
+      document.getElementById('navbar-portal').innerHTML = navbarHTML;
+      document.getElementById('footer-portal').innerHTML = footerHTML;
+
+      // 重新生成注入的圖標
+      lucide.createIcons();
+
+      // 綁定深淺色主題切換邏輯
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      themeToggleBtn.addEventListener('click', () => {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+
+      // 綁定行動版選單開關
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const openIcon = document.getElementById('menu-icon-open');
+      const closeIcon = document.getElementById('menu-icon-close');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        if (isHidden) {
+          mobileMenu.classList.remove('hidden');
+          openIcon.classList.add('hidden');
+          closeIcon.classList.remove('hidden');
+        } else {
+          mobileMenu.classList.add('hidden');
+          openIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        }
+      });
+
+      // 點擊行動版連結後自動關閉選單
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          openIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        });
+      });
+
+      // 當前頁面高亮（Active Link Highlight）與 Intersection Observer 聯動
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      const navObserverOptions = {
+        root: null,
+        rootMargin: '-50% 0px -50% 0px', // 當區塊佔據視窗中心時觸發
+        threshold: 0
+      };
+
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            updateActiveLink(id);
+          }
+        });
+      }, navObserverOptions);
+
+      sections.forEach(section => navObserver.observe(section));
+
+      function updateActiveLink(activeId) {
+        navLinks.forEach(link => {
+          const href = link.getAttribute('href').substring(1);
+          if (href === activeId) {
+            link.classList.add('text-appleBlue-light', 'dark:text-appleBlue-dark', 'font-semibold');
+            link.classList.remove('text-muted-light', 'dark:text-muted-dark');
+          } else {
+            link.classList.remove('text-appleBlue-light', 'dark:text-appleBlue-dark', 'font-semibold');
+            link.classList.add('text-muted-light', 'dark:text-muted-dark');
+          }
+        });
+      }
+    }
+
+    /**
+     * 打字機動態特效（Typewriter Effect）
+     */
+    function initTypewriter() {
+      const words = TYPEWRITER_ROLES;
+      const typewriterElement = document.getElementById('typewriter');
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      let typeSpeed = 100;
+
+      function type() {
+        const currentWord = words[wordIndex];
+        
+        if (isDeleting) {
+          typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
+          charIndex--;
+          typeSpeed = 40; // 刪除時速度加快
+        } else {
+          typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
+          charIndex++;
+          typeSpeed = 120; // 輸入時速度稍微緩慢沉穩
+        }
+
+        // 打字完成後，停頓並開始刪除
+        if (!isDeleting && charIndex === currentWord.length) {
+          isDeleting = true;
+          typeSpeed = 2000; // 在句末停頓
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          typeSpeed = 500; // 切換新詞前稍微停頓
+        }
+
+        setTimeout(type, typeSpeed);
+      }
+
+      // 啟動打字機制
+      setTimeout(type, 1000);
+    }
+
+    /**
+     * 滑動觸發動態（Scroll Reveal）
+     */
+    function initScrollReveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      
+      const revealObserverOptions = {
+        root: null,
+        rootMargin: '0px 0px -10% 0px', // 稍低於視窗邊緣時就觸發
+        threshold: 0.05
+      };
+
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            // 觸發後即停止監聽，達到單次優雅加載的效果
+            observer.unobserve(entry.target);
+          }
+        });
+      }, revealObserverOptions);
+
+      reveals.forEach(el => revealObserver.observe(el));
+    }
+  </script>
+
+</body>
+</html>
