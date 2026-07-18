@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文章閱讀 | YiYu Chou</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons for premium minimalistic icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Tailwind configuration for custom colors and Apple animation curves -->
+  <script src="../util/tailwindConfigurationForCustom.js"></script>
+  <!-- 引入全部頁面通用的CSS -->
+  <link rel="stylesheet" href="../util/commonStyle.css">
+  <!-- Marked.js CDN: 用於在瀏覽器端解析 Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- 引入自定義Markdown樣式的CSS -->
+  <link rel="stylesheet" href="markdown.css">
+</head>
+<body class="bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark font-sans antialiased overflow-x-hidden selection:bg-appleBlue-light selection:text-white">
+
+  <!-- [必要元素] 導覽列容器（由 JavaScript 動態注入組件，維持跨頁共用性） -->
+  <div id="navbar-portal"></div>
+
+  <!-- 主內容區(內容由此撰寫) --> 
+  <main class="pt-20">
+    <div class="max-w-6xl mx-auto px-6" id="main-body">
+
+      <!-- 返回主頁與麵包屑 -->
+      <nav class="reveal flex items-center gap-2 text-sm text-muted-light dark:text-muted-dark pt-4 mb-8">
+        <a href="/"
+          class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark flex items-center gap-1 transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> 首頁
+        </a>
+        <span>/</span>
+        <a href="index.html#portfolio"
+          class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">文章列表</a>
+        <span>/</span>
+        <span class="text-text-light dark:text-text-dark font-medium truncate" id="breadcrumb-title">文章</span>
+      </nav>
+
+      <!-- 文章標題與中介資訊區 (由 Markdown 的 Front Matter 或 JS 模擬設定) -->
+      <header class="space-y-6 text-left reveal max-w-4xl border-b border-gray-100 dark:border-zinc-900 pb-10">
+        <div class="flex items-center gap-4 text-xs font-semibold">
+          <span class="px-3 py-1 rounded-full bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 text-appleBlue-light dark:text-appleBlue-dark" id="article-category">
+            <!-- 這裡是文章類別 -->
+          </span>
+          <span class="text-muted-light dark:text-muted-dark flex items-center gap-1">
+            <i data-lucide="clock" class="w-3.5 h-3.5"></i> 預估閱讀時間：6 分鐘
+          </span>
+        </div>
+
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight" id="article-main-title">
+          <!-- 這裡是黑色標題 --><br><span class="gradient-text" id="article-gradient-title"><!-- 這裡是漸層標題 --></span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-muted-light dark:text-muted-dark font-medium leading-relaxed"
+          id="article-description">
+          <!-- 這裡是文章的說明 -->
+        </p>
+
+        <div class="flex items-center gap-3 pt-2">
+          <div
+            class="w-10 h-10 rounded-full bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 flex items-center justify-center text-appleBlue-light dark:text-appleBlue-dark font-bold text-sm">
+            EL
+          </div>
+          <div>
+            <p class="text-sm font-bold" id="article-author"><!-- 這裡是文章的作者 --></p>
+            <p class="text-xs text-muted-light dark:text-muted-dark">發表於 <span id="article-date-year"> <!-- 這裡是文章發佈日期的年份 --> </span> 年 <span id="article-date-month"><!-- 這裡是文章發佈日期的月份 --></span> 月 <span id="article-date-day"><!-- 這裡是文章發佈日期的日期 --></span> 日</p>
+          </div>
+        </div>
+      </header>
+
+      <!-- 文章主體：左側目錄、右側文章內容 -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-12 items-start">
+
+        <!-- 左側：動態生成懸浮目錄 -->
+        <aside class="hidden lg:block lg:col-span-3 lg:sticky lg:top-24 space-y-4">
+          <p class="text-xs uppercase tracking-widest text-muted-light dark:text-muted-dark font-bold pl-3">目錄導覽</p>
+          <nav id="dynamic-toc"
+            class="border-l border-gray-200 dark:border-zinc-800 flex flex-col space-y-1 text-sm text-muted-light dark:text-muted-dark">
+            <!-- 由 JavaScript 動態生成目錄項目 -->
+            <span class="text-xs text-muted-light/60 pl-3">正在生成目錄...</span>
+          </nav>
+        </aside>
+
+        <!-- 右側：Markdown 動態渲染內容 -->
+        <article id="markdown-content" class="markdown-body lg:col-span-9 text-text-light dark:text-text-dark mb-8">
+          <div class="py-12 text-center text-muted-light dark:text-muted-dark">
+            <div
+              class="w-8 h-8 border-4 border-appleBlue-light border-t-transparent rounded-full animate-spin mx-auto mb-4">
+            </div>
+            正在載入並解析 Markdown 內容...
+          </div>
+        </article>
+
+      </div>
+
+      <!-- 底部文章推薦導航 (暫時不開發) -->
+      <!-- <footer class="reveal border-t border-gray-100 dark:border-zinc-900 mt-20 pt-10">
+        <div class="flex flex-col sm:flex-row justify-between gap-6">
+          <a href="#"
+            class="group p-6 rounded-2xl border border-gray-100 dark:border-zinc-900 hover:border-appleBlue-light/30 dark:hover:border-appleBlue-dark/30 transition-all flex flex-col max-w-sm">
+            <span class="text-xs text-muted-light dark:text-muted-dark flex items-center gap-1"><i
+                data-lucide="chevron-left" class="w-3.5 h-3.5"></i> 上一篇相關文章</span>
+            <span
+              class="font-bold text-text-light dark:text-text-dark group-hover:text-appleBlue-light dark:group-hover:text-appleBlue-dark mt-2 transition-colors">上一篇相關文章標題</span>
+          </a>
+          <a href="#"
+            class="group p-6 rounded-2xl border border-gray-100 dark:border-zinc-900 hover:border-appleBlue-light/30 dark:hover:border-appleBlue-dark/30 transition-all flex flex-col max-w-sm text-right">
+            <span class="text-xs text-muted-light dark:text-muted-dark flex items-center gap-1 justify-end">下一篇相關文章 <i
+                data-lucide="chevron-right" class="w-3.5 h-3.5"></i></span>
+            <span
+              class="font-bold text-text-light dark:text-text-dark group-hover:text-appleBlue-light dark:group-hover:text-appleBlue-dark mt-2 transition-colors">C++
+              下一篇相關文章標題</span>
+          </a>
+        </div>
+      </footer> -->
+
+    </div>
+
+  </main>
+
+  <!-- [必要元素] 頁尾容器（由 JavaScript 動態注入組件，維持跨頁共用性） -->
+  <div id="footer-portal"></div>
+  <!-- [必要元素] 引入導覽列及頁尾容器所需JavaScript程式 -->
+  <script src="../util/navbarAndFooter.js"></script>
+  <!-- [必要元素] 引入滾動顯現及Lucide圖標所需JavaScript程式-->
+  <script src="../util/commonScript.js"></script>
+  <!-- 引入動態載入 Markdown、渲染及目錄控制腳本所需JavaScript程式-->
+  <script src="article.js"></script>
+</body>
+</html>
