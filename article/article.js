@@ -15,7 +15,7 @@ async function loadAndRenderMarkdown(filePath) {
         const urlParams = new URLSearchParams(queryString);
         const articleID = urlParams.get('id');
         // 發送異步請求獲取 Markdown 本文
-        const response = await fetch("https://raw.githubusercontent.com/yiyu-chou/article/refs/heads/main/" + articleID + ".md");
+        const response = await fetch("https://raw.githubusercontent.com/yiyu-chou/my-article/refs/heads/main/list/" + articleID + ".md");
         if (!response.ok) {
             throw new Error(`無法讀取 Markdown 檔案：${response.status}`);
         }
