@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>探索成果 | YiYu Chou</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons for premium minimalistic icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Tailwind configuration for custom colors and Apple animation curves -->
+  <script src="../util/tailwindConfigurationForCustom.js"></script>
+  <!-- 引入全部頁面通用的CSS -->
+  <link rel="stylesheet" href="../util/commonStyle.css">
+</head>
+
+<body
+  class="bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark font-sans antialiased overflow-x-hidden selection:bg-appleBlue-light selection:text-white">
+
+  <!-- [必要元素] 導覽列容器（由 JavaScript 動態注入組件，維持跨頁共用性） -->
+  <div id="navbar-portal"></div>
+
+  <!-- 主內容區(內容由此撰寫) -->
+  <main class="pt-20">
+    <div class="max-w-6xl mx-auto px-6 space-y-16 ">
+
+      <!-- 返回主頁與麵包屑 -->
+      <nav class="reveal flex items-center gap-2 text-sm text-muted-light dark:text-muted-dark pt-4">
+        <a href="/"
+          class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark flex items-center gap-1 transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> 首頁
+        </a>
+        <span>/</span>
+        <span class="text-text-light dark:text-text-dark font-medium">探索成果</span>
+      </nav>
+
+      <!-- 標頭介紹 -->
+      <header class="space-y-6 text-left reveal">
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
+          實踐硬核工程，<br>構築 <span class="gradient-text">科學探測與系統整合</span>
+        </h1>
+        <p class="text-lg text-muted-light dark:text-muted-dark leading-relaxed max-w-3xl">
+          從微控制器系統架構、自動化感測電路銲接，到地面數據可視化平台。這裡展示了我高中至今親手構建、開發並持續優化的核心工程專案。
+        </p>
+      </header>
+
+      <!-- 專案展示網格 (Projects Grid) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+
+        <!-- 專案一：多功能氣象與物理環境探測儀 -->
+        <article
+          class="project-card group relative rounded-3xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-zinc-900 p-6 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <div
+                class="w-12 h-12 rounded-2xl bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 flex items-center justify-center text-appleBlue-light dark:text-appleBlue-dark">
+                <i data-lucide="thermometer" class="w-6 h-6"></i>
+              </div>
+              <span
+                class="text-xs font-semibold text-appleBlue-light dark:text-appleBlue-dark bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 px-2.5 py-1 rounded-full">硬體整合與物理感測</span>
+            </div>
+            <div class="space-y-2">
+              <h3
+                class="text-xl font-bold group-hover:text-appleBlue-light dark:group-hover:text-appleBlue-dark transition-colors">
+                微型氣壓與環境多功能探測裝置</h3>
+              <p class="text-xs text-muted-light dark:text-muted-dark leading-relaxed">
+                針對垂直高度層數據採集而自主設計的探針裝置。整合 BME280 與高頻靜電電極，透過 C++ 優化濾波邏輯，解決了在高速運動下的動態環境雜訊補償。
+              </p>
+              <div class="pt-2">
+                <p class="text-[11px] font-bold text-text-light dark:text-text-dark flex items-center gap-1">
+                  <i data-lucide="cpu" class="w-3.5 h-3.5 text-appleBlue-light dark:text-appleBlue-dark"></i>
+                  工程應用：
+                </p>
+                <p class="text-[11px] text-muted-light dark:text-muted-dark leading-relaxed">
+                  可作為低功耗大氣測量子系統，用於無人機、高空氣球或移動載具採集即時氣壓、相對高度與環境特徵。
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="pt-6 mt-6 border-t border-gray-100 dark:border-zinc-800/50 flex items-center justify-between">
+            <div class="flex flex-wrap gap-1">
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">C++</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">I2C 通訊</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">微電路銲接</span>
+            </div>
+            <a href="#"
+              class="text-appleBlue-light dark:text-appleBlue-dark hover:opacity-80 flex items-center gap-1 text-sm font-semibold">
+              查看更多 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- 專案二：ESP32 邊緣感測與即時姿態控制核心 -->
+        <article
+          class="project-card group relative rounded-3xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-zinc-900 p-6 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <div
+                class="w-12 h-12 rounded-2xl bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 flex items-center justify-center text-appleBlue-light dark:text-appleBlue-dark">
+                <i data-lucide="navigation" class="w-6 h-6"></i>
+              </div>
+              <span
+                class="text-xs font-semibold text-appleBlue-light dark:text-appleBlue-dark bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 px-2.5 py-1 rounded-full">嵌入式控制系統</span>
+            </div>
+            <div class="space-y-2">
+              <h3
+                class="text-xl font-bold group-hover:text-appleBlue-light dark:group-hover:text-appleBlue-dark transition-colors">
+                即時姿態偵測（IMU）與運動反饋核心</h3>
+              <p class="text-xs text-muted-light dark:text-muted-dark leading-relaxed">
+                基於 ESP32 單晶片與 MPU6050 慣性測量單元，實作互補濾波（Complementary Filter）演算法，在微處理器端進行高頻姿態角解算。
+              </p>
+              <div class="pt-2">
+                <p class="text-[11px] font-bold text-text-light dark:text-text-dark flex items-center gap-1">
+                  <i data-lucide="settings" class="w-3.5 h-3.5 text-appleBlue-light dark:text-appleBlue-dark"></i>
+                  工程應用：
+                </p>
+                <p class="text-[11px] text-muted-light dark:text-muted-dark leading-relaxed">
+                  應用於自平衡雙輪機器人、無人機飛控儀、或各類機器人載具的關鍵平衡與自主姿態控制（PID 反饋控制）。
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="pt-6 mt-6 border-t border-gray-100 dark:border-zinc-800/50 flex items-center justify-between">
+            <div class="flex flex-wrap gap-1">
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">FreeRTOS</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">MPU6050</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">邊緣計算</span>
+            </div>
+            <a href="#"
+              class="text-appleBlue-light dark:text-appleBlue-dark hover:opacity-80 flex items-center gap-1 text-sm font-semibold">
+              查看更多 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- 專案三：遠程物聯網無線動態監控面板 -->
+        <article
+          class="project-card group relative rounded-3xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-zinc-900 p-6 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <div
+                class="w-12 h-12 rounded-2xl bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 flex items-center justify-center text-appleBlue-light dark:text-appleBlue-dark">
+                <i data-lucide="line-chart" class="w-6 h-6"></i>
+              </div>
+              <span
+                class="text-xs font-semibold text-appleBlue-light dark:text-appleBlue-dark bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 px-2.5 py-1 rounded-full">系統軟體與可視化</span>
+            </div>
+            <div class="space-y-2">
+              <h3
+                class="text-xl font-bold group-hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">
+                多通道遙測數據即時監控主控台</h3>
+              <p class="text-xs text-muted-light dark:text-muted-dark leading-relaxed">
+                利用 Node.js 與 WebSockets 技術，建構出多通道、超低延遲（ &lt; 50ms）的遠程遙測數據顯示主控台。即時呈現溫度、三軸姿態曲線與大氣電位變化。 </p>
+                  <div class="pt-2">
+                    <p class="text-[11px] font-bold text-text-light dark:text-text-dark flex items-center gap-1">
+                      <i data-lucide="terminal" class="w-3.5 h-3.5 text-appleBlue-light dark:text-appleBlue-dark"></i>
+                      工程應用：
+                    </p>
+                    <p class="text-[11px] text-muted-light dark:text-muted-dark leading-relaxed">
+                      提供自動化溫室監控、遠端工廠廠區環境追蹤與無線感測節點網路（WSN）的集中式資訊看板原型。
+                    </p>
+                  </div>
+            </div>
+          </div>
+          <div class="pt-6 mt-6 border-t border-gray-100 dark:border-zinc-800/50 flex items-center justify-between">
+            <div class="flex flex-wrap gap-1">
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">Node.js</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">WebSockets</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">Tailwind</span>
+            </div>
+            <a href="#"
+              class="text-appleBlue-light dark:text-appleBlue-dark hover:opacity-80 flex items-center gap-1 text-sm font-semibold">
+              查看更多 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- 專案四：自製智慧搬運車機構設計與 3D 快速成型 -->
+        <article
+          class="project-card group relative rounded-3xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-zinc-900 p-6 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <div
+                class="w-12 h-12 rounded-2xl bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 flex items-center justify-center text-appleBlue-light dark:text-appleBlue-dark">
+                <i data-lucide="package" class="w-6 h-6"></i>
+              </div>
+              <span
+                class="text-xs font-semibold text-appleBlue-light dark:text-appleBlue-dark bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 px-2.5 py-1 rounded-full">機構設計與製造</span>
+            </div>
+            <div class="space-y-2">
+              <h3
+                class="text-xl font-bold group-hover:text-appleBlue-light dark:group-hover:text-appleBlue-dark transition-colors">
+                智慧避障小車高強度耐震防護機構</h3>
+              <p class="text-xs text-muted-light dark:text-muted-dark leading-relaxed">
+                利用 Fusion 360 自主設計高防護型卡槽與防震底盤。在切片階段優化填充密度，通過衝擊應力測試，防止運作中關鍵電子零件銲點斷裂。
+              </p>
+              <div class="pt-2">
+                <p class="text-[11px] font-bold text-text-light dark:text-text-dark flex items-center gap-1">
+                  <i data-lucide="wrench" class="w-3.5 h-3.5 text-appleBlue-light dark:text-appleBlue-dark"></i>
+                  工程應用：
+                </p>
+                <p class="text-[11px] text-muted-light dark:text-muted-dark leading-relaxed">
+                  應用於高頻振動與惡劣地形（如越野探測車、工廠無人搬運 AGV）的控制板硬體與機電系統結構防護。
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="pt-6 mt-6 border-t border-gray-100 dark:border-zinc-800/50 flex items-center justify-between">
+            <div class="flex flex-wrap gap-1">
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">3D CAD</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">應力模擬</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">快速成型</span>
+            </div>
+            <a href="#"
+              class="text-appleBlue-light dark:text-appleBlue-dark hover:opacity-80 flex items-center gap-1 text-sm font-semibold">
+              查看更多 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- 專案五：自建多氣體感測與環境溫溼度長期記錄模組 -->
+        <article
+          class="project-card group relative rounded-3xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-zinc-900 p-6 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <div
+                class="w-12 h-12 rounded-2xl bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 flex items-center justify-center text-appleBlue-light dark:text-appleBlue-dark">
+                <i data-lucide="database" class="w-6 h-6"></i>
+              </div>
+              <span
+                class="text-xs font-semibold text-appleBlue-light dark:text-appleBlue-dark bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 px-2.5 py-1 rounded-full">智慧物聯網
+                (IoT)</span>
+            </div>
+            <div class="space-y-2">
+              <h3
+                class="text-xl font-bold group-hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">
+                低功耗環境多指標自動記錄系統</h3>
+              <p class="text-xs text-muted-light dark:text-muted-dark leading-relaxed">
+                整合精準溫濕度、揮發性氣體與氣壓等環境物理感測單元，開發出長時間自動寫入 SD 卡的極低功耗系統（Deep Sleep），驗證戶外野地高濕環境下的耐用度。
+              </p>
+              <div class="pt-2">
+                <p class="text-[11px] font-bold text-text-light dark:text-text-dark flex items-center gap-1">
+                  <i data-lucide="battery-charging"
+                    class="w-3.5 h-3.5 text-appleBlue-light dark:text-appleBlue-dark"></i>
+                  工程應用：
+                </p>
+                <p class="text-[11px] text-muted-light dark:text-muted-dark leading-relaxed">
+                  適用於野外無人看守之氣候監測、智慧農業環境採樣或微型儲能系統之環境動態分析。
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="pt-6 mt-6 border-t border-gray-100 dark:border-zinc-800/50 flex items-center justify-between">
+            <div class="flex flex-wrap gap-1">
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">Arduino</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">SPI 儲存</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">Low Power</span>
+            </div>
+            <a href="#"
+              class="text-appleBlue-light dark:text-appleBlue-dark hover:opacity-80 flex items-center gap-1 text-sm font-semibold">
+              查看更多 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- 專案六：物理擺動與運動軌跡數值模擬分析 -->
+        <article
+          class="project-card group relative rounded-3xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-zinc-900 p-6 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex justify-between items-start">
+              <div
+                class="w-12 h-12 rounded-2xl bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 flex items-center justify-center text-appleBlue-light dark:text-appleBlue-dark">
+                <i data-lucide="activity" class="w-6 h-6"></i>
+              </div>
+              <span
+                class="text-xs font-semibold text-appleBlue-light dark:text-appleBlue-dark bg-appleBlue-light/10 dark:bg-appleBlue-dark/10 px-2.5 py-1 rounded-full">科學計算與模擬</span>
+            </div>
+            <div class="space-y-2">
+              <h3
+                class="text-xl font-bold group-hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">
+                高空重力加速度與風阻運動數值模擬程式</h3>
+              <p class="text-xs text-muted-light dark:text-muted-dark leading-relaxed">
+                運用 Python、SciPy 求解微分方程，建立在考量空氣阻力（二次阻力模型）及非均勻重力場下物體落體與升空的三維彈道軌跡模型。
+              </p>
+              <div class="pt-2">
+                <p class="text-[11px] font-bold text-text-light dark:text-text-dark flex items-center gap-1">
+                  <i data-lucide="calculator" class="w-3.5 h-3.5 text-appleBlue-light dark:text-appleBlue-dark"></i>
+                  工程應用：
+                </p>
+                <p class="text-[11px] text-muted-light dark:text-muted-dark leading-relaxed">
+                  提供探空球、科學觀測浮空載具發射與降落地點預估，將物理方程成功轉化為實用的軟體系統分析工具。
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="pt-6 mt-6 border-t border-gray-100 dark:border-zinc-800/50 flex items-center justify-between">
+            <div class="flex flex-wrap gap-1">
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">Python</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">Matplotlib</span>
+              <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 dark:bg-zinc-800">軌跡預估</span>
+            </div>
+            <a href="#"
+              class="text-appleBlue-light dark:text-appleBlue-dark hover:opacity-80 flex items-center gap-1 text-sm font-semibold">
+              查看更多 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+      <!-- 頁底「更多作品正在努力開發中...」提示區塊 -->
+      <div class="reveal pb-12 flex flex-col items-center justify-center text-center space-y-4">
+        <div class="w-16 h-[1px] bg-gray-200 dark:bg-zinc-850"></div>
+        <div class="flex items-center gap-2 text-muted-light dark:text-muted-dark text-sm font-medium">
+          <span>更多創新專案與研究成果正在努力開發中...</span>
+        </div>
+        <p class="text-xs text-muted-light/70 dark:text-muted-dark/50 max-w-md leading-relaxed">
+          持續關注我或隨時聯絡我，以獲取關於嵌入式系統與科學模擬平台的最新實作進度。
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- [必要元素] 頁尾容器（由 JavaScript 動態注入組件，維持跨頁共用性） -->
+  <div id="footer-portal"></div>
+  <!-- [必要元素] 引入導覽列及頁尾容器所需JavaScript程式 -->
+  <script src="../util/navbarAndFooter.js"></script>
+  <!-- [必要元素] 引入滾動顯現及Lucide圖標所需JavaScript程式-->
+  <script src="../util/commonScript.js"></script>
+</body>
+
+</html>
