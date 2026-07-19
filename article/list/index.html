@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文章列表 | YiYu Chou</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons for premium minimalistic icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Tailwind configuration for custom colors and Apple animation curves -->
+  <script src="../../util/tailwindConfigurationForCustom.js"></script>
+  <!-- 引入全部頁面通用的CSS -->
+  <link rel="stylesheet" href="../../util/commonStyle.css">
+</head>
+<body class="bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark font-sans antialiased overflow-x-hidden selection:bg-appleBlue-light selection:text-white">
+
+  <!-- [必要元素] 導覽列容器（由 JavaScript 動態注入組件，維持跨頁共用性） -->
+  <div id="navbar-portal"></div>
+
+  <!-- 主內容區(內容由此撰寫) --> 
+  <main class="pt-20">
+    <div class="max-w-6xl mx-auto px-6 space-y-12">
+      
+      <!-- 麵包屑導航 -->
+      <nav class="reveal flex items-center gap-2 text-sm text-muted-light dark:text-muted-dark pt-4">
+        <a href="index.html" class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark flex items-center gap-1 transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> 首頁作品集
+        </a>
+        <span>/</span>
+        <span class="text-text-light dark:text-text-dark font-medium">技術日誌與學術成果</span>
+      </nav>
+
+      <!-- 頁面大標題 -->
+      <header class="space-y-6 text-left reveal max-w-3xl">
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+          學術日誌與 <br><span class="gradient-text">專案研求紀錄</span>
+        </h1>
+        <p class="text-lg text-muted-light dark:text-muted-dark leading-relaxed">
+          這裡記錄了我對前沿科學、大氣研究及資工軟硬整合的探索足跡。透過嚴謹的數據分析與實作筆記，將理論知識轉化為可見的實踐。
+        </p>
+      </header>
+
+      <!-- 分類與文章列表區域 -->
+      <section class="space-y-8">
+        <!-- 膠囊標籤篩選列 -->
+        <div class="reveal flex flex-wrap gap-2.5 pb-2 border-b border-gray-100 dark:border-zinc-900" id="filter-bar">
+          <button data-filter="all" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition-all bg-appleBlue-light text-white dark:bg-appleBlue-dark dark:text-black">
+            全部文章
+          </button>
+          <button data-filter="主題研究" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition-all bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark hover:bg-gray-200 dark:hover:bg-zinc-700 hover:text-text-light dark:hover:text-text-dark">
+            主題研究
+          </button>
+          <button data-filter="自主學習" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition-all bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark hover:bg-gray-200 dark:hover:bg-zinc-700 hover:text-text-light dark:hover:text-text-dark">
+            自主學習
+          </button>
+          <button data-filter="活動參與" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition-all bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark hover:bg-gray-200 dark:hover:bg-zinc-700 hover:text-text-light dark:hover:text-text-dark">
+            活動參與
+          </button>
+          <button data-filter="經驗分享" class="filter-btn px-4 py-2 rounded-full text-sm font-semibold transition-all bg-gray-100 dark:bg-zinc-800 text-muted-light dark:text-muted-dark hover:bg-gray-200 dark:hover:bg-zinc-700 hover:text-text-light dark:hover:text-text-dark">
+            經驗分享
+          </button>
+        </div>
+
+        <!-- 文章網格容器 (完全動態渲染) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="posts-grid">
+          <!-- JS 動態寫入卡片 -->
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- [必要元素] 頁尾容器（由 JavaScript 動態注入組件，維持跨頁共用性） -->
+  <div id="footer-portal"></div>
+  <!-- [必要元素] 引入導覽列及頁尾容器所需JavaScript程式 -->
+  <script src="../../util/navbarAndFooter.js"></script>
+  <!-- [必要元素] 引入滾動顯現及Lucide圖標所需JavaScript程式-->
+  <script src="../../util/commonScript.js"></script>
+    <!-- 引入本頁所需JavaScript程式-->
+    <script src="list.js"></script>
+</body>
+</html>
