@@ -28,6 +28,7 @@ function initCommonComponents() {
               <a href="/about" class="nav-link hover:text-appleBlue-light dark:hover:text-appleBlue-dark py-2 transition-colors">關於我</a>
               <a href="/experience" class="nav-link hover:text-appleBlue-light dark:hover:text-appleBlue-dark py-2 transition-colors">活動經歷</a>
               <a href="/portfolio" class="nav-link hover:text-appleBlue-light dark:hover:text-appleBlue-dark py-2 transition-colors">探索成果</a>
+              <a href="/article/list" class="nav-link hover:text-appleBlue-light dark:hover:text-appleBlue-dark py-2 transition-colors">文章列表</a>
             </div>
 
             <!-- 控制鈕區 (深色模式 + 手機選單開關) -->
@@ -53,6 +54,7 @@ function initCommonComponents() {
               <a href="/about" class="mobile-nav-link py-2 border-b border-gray-100 dark:border-zinc-900">關於我</a>
               <a href="/experience" class="mobile-nav-link py-2 border-b border-gray-100 dark:border-zinc-900">活動經歷</a>
               <a href="/portfolio" class="mobile-nav-link py-2">探索成果</a>
+              <a href="/article/list" class="mobile-nav-link py-2">文章列表</a>
             </div>
           </div>
         </nav>
@@ -75,6 +77,7 @@ function initCommonComponents() {
               <a href="/about" class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">關於我</a>
               <a href="/experience" class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">活動經歷</a>
               <a href="/portfolio" class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">探索成果</a>
+              <a href="/article/list" class="hover:text-appleBlue-light dark:hover:text-appleBlue-dark transition-colors">文章列表</a>
             </div>
 
             <p class="text-xs text-muted-light dark:text-muted-dark">&copy; ${new Date().getFullYear()} YiYu Chou. All rights reserved.</p>
