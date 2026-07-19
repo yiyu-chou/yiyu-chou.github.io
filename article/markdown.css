@@ -252,3 +252,32 @@
     color: #86868b;
     /* 深色模式下的文字灰 */
 }
+
+.markdown-body a {
+    color: #0071e3;
+    font-weight: 500;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+  }
+  .dark .markdown-body a {
+    color: #2997ff;
+  }
+  .markdown-body a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #0071e3;
+    transform-origin: bottom left;
+    transition: transform 300ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .dark .markdown-body a::after {
+    background-color: #2997ff;
+  }
+  .markdown-body a:hover::after {
+    transform: scaleX(1);
+  }
